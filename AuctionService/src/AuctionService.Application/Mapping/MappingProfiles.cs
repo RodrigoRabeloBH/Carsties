@@ -25,6 +25,11 @@ namespace AuctionService.Application.Mapping
             CreateMap<CreateAuctionDto, Item>();
 
             CreateMap<AuctionDto, AuctionCreated>();
+
+            CreateMap<Auction, AuctionUpdated>()
+                .IncludeMembers(a => a.Item);
+
+            CreateMap<Item, AuctionUpdated>();
         }
     }
 }

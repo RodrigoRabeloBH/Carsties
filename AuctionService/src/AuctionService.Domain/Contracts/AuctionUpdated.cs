@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace AuctionService.Domain.Contracts
+namespace AuctionContracts
 {
     [ExcludeFromCodeCoverage]
     public class AuctionUpdated

@@ -20,13 +20,16 @@ namespace AuctionService.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<bool> Create(T entity)
+        public async Task<bool>Save()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+        public async Task Create(T entity)
         {
             try
             {
                 await _context.Set<T>().AddAsync(entity);
 
-                return await _context.SaveChangesAsync() != 0;
             }
             catch (Exception ex)
             {
@@ -56,7 +59,7 @@ namespace AuctionService.Infrastructure.Repositories
 
         public void Dispose()
         {
-            GC.SuppressFinalize(this);            
+            GC.SuppressFinalize(this);
         }
 
         public async Task<IEnumerable<T>> GetAll()

@@ -6,8 +6,9 @@ namespace AuctionService.Domain.Interfaces.Repository
     {
         Task<IEnumerable<T>> GetAll();
         Task<T> GetById(Guid id);
-        Task<bool> Create(T entity);
+        Task Create(T entity);
         Task<bool> Update(T entity);
         Task<bool> DeleteById(Guid id);
+        Task<bool> Save();
     }
 }

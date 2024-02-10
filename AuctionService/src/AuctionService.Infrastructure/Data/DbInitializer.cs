@@ -42,7 +42,7 @@ namespace AuctionService.Infrastructure.Data
             }
             catch (Exception ex)
             {
-                logger.LogError($"[SEED DATA ERROR]: {ex.Message}", ex);
+                logger.LogError("[SEED DATA ERROR]: --> Error Message: {errorMessage}", ex.Message);
 
                 throw;
             }

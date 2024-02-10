@@ -1,6 +1,7 @@
 ﻿using AuctionService.Application.Services;
 using AuctionService.Domain.Interfaces.Repository;
 using AuctionService.Domain.Interfaces.Services;
+using AuctionService.Infrastructure.Consumers;
 using AuctionService.Infrastructure.Data;
 using AuctionService.Infrastructure.Repositories;
 using MassTransit;
@@ -47,12 +48,17 @@ namespace AuctionService.CrossCutting.IoC
         {
             services.AddMassTransit(x =>
             {
+                x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
+
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
+
                 x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
                 {
                     o.QueryDelay = TimeSpan.FromSeconds(10);
                     o.UsePostgres();
                     o.UseBusOutbox();
                 });
+
                 x.UsingRabbitMq((context, config) =>
                 {
                     config.ConfigureEndpoints(context);

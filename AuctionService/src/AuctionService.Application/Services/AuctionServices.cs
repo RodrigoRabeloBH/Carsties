@@ -30,22 +30,28 @@ namespace AuctionService.Application.Services
 
             var auction = _mapper.Map<Auction>(createAuctionDto);
 
+            await _rep.Create(auction);
+
             var newAuction = _mapper.Map<AuctionDto>(auction);
 
             var auctionCreated = _mapper.Map<AuctionCreated>(newAuction);
 
             await _publishEndpoint.Publish(auctionCreated);
 
-            await _rep.Create(auction);
+            await _rep.Save();
 
-            _logger.LogInformation("[AUCTION SERVICES][CREATE] --> Auction created and published to RabbitMQ");
+            _logger.LogInformation("[AUCTION SERVICES][CREATE] --> Auction created and published to RabbitMq");
 
             return newAuction;
         }
 
         public async Task<bool> DeleteById(Guid id)
         {
-            _logger.LogInformation($"[AUCTION SERVICES][DELETE] --> Removing auction id: {id}");
+            _logger.LogInformation("[AUCTION SERVICES][DELETE] --> Removing auction id: {id}", id);
+
+            var auctionDeleted = new AuctionDeleted { Id = id.ToString() };
+
+            await _publishEndpoint.Publish(auctionDeleted);
 
             return await _rep.DeleteById(id);
         }
@@ -61,7 +67,7 @@ namespace AuctionService.Application.Services
 
         public async Task<AuctionDto> GetById(Guid id)
         {
-            _logger.LogInformation($"[AUCTION SERVICES][GET BY ID] --> Getting auction by id: {id}");
+            _logger.LogInformation("[AUCTION SERVICES][GET BY ID] --> Getting auction by id: {id}", id);
 
             var auction = await _rep.GetAuctionById(id);
 
@@ -82,6 +88,10 @@ namespace AuctionService.Application.Services
             auction.Item.Mileage = updateAuctionDto.Mileage ?? auction.Item.Mileage;
             auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
             auction.Item.ImageUrl = updateAuctionDto.ImageUrl ?? auction.Item.ImageUrl;
+
+            var auctionUpdated = _mapper.Map<AuctionUpdated>(auction);
+
+            await _publishEndpoint.Publish(auctionUpdated);
 
             await _rep.Update(auction);
 
