@@ -24,11 +24,13 @@ namespace AuctionService.Application.Services
             _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<AuctionDto> Create(CreateAuctionDto createAuctionDto)
+        public async Task<AuctionDto> Create(CreateAuctionDto createAuctionDto, string seller)
         {
             _logger.LogInformation("[AUCTION SERVICES][CREATE] --> Creating auction ...");
 
             var auction = _mapper.Map<Auction>(createAuctionDto);
+
+            auction.Seller = seller;
 
             await _rep.Create(auction);
 
@@ -45,15 +47,19 @@ namespace AuctionService.Application.Services
             return newAuction;
         }
 
-        public async Task<bool> DeleteById(Guid id)
+        public async Task<bool> DeleteById(Guid id, string seller)
         {
             _logger.LogInformation("[AUCTION SERVICES][DELETE] --> Removing auction id: {id}", id);
+
+            var auction = await _rep.GetAuctionById(id);
+
+            if (auction.Seller != seller) return false;
 
             var auctionDeleted = new AuctionDeleted { Id = id.ToString() };
 
             await _publishEndpoint.Publish(auctionDeleted);
 
-            return await _rep.DeleteById(id);
+            return await _rep.DeleteById(auction);
         }
 
         public async Task<List<AuctionDto>> GetAll(string date)
@@ -74,13 +80,15 @@ namespace AuctionService.Application.Services
             return _mapper.Map<AuctionDto>(auction);
         }
 
-        public async Task<AuctionDto> Update(Guid id, UpdateAuctionDto updateAuctionDto)
+        public async Task<AuctionDto> Update(Guid id, UpdateAuctionDto updateAuctionDto, string seller)
         {
             _logger.LogInformation("[AUCTION SERVICES][UPDATE] --> Updating auction started...");
 
             var auction = await _rep.GetAuctionById(id);
 
             if (auction is null) return null;
+
+            if (auction.Seller != seller) return null;
 
             auction.Item.Make = updateAuctionDto.Make ?? auction.Item.Make;
             auction.Item.Model = updateAuctionDto.Model ?? auction.Item.Model;

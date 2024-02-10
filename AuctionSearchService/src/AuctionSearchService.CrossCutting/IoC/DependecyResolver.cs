@@ -1,5 +1,4 @@
-﻿using AuctionContracts;
-using AuctionSearchService.Application;
+﻿using AuctionSearchService.Application;
 using AuctionSearchService.Domain.Interfaces.Repositories;
 using AuctionSearchService.Domain.Interfaces.Services;
 using AuctionSearchService.Infrastructure.Consumers;
@@ -64,6 +63,19 @@ namespace AuctionSearchService.CrossCutting.IoC
                         e.UseMessageRetry(r => r.Interval(3, 5));
                         e.ConfigureConsumer<AuctionCreatedConsumer>(context);
                     });
+
+                    config.ReceiveEndpoint("search-auction-deleted", e =>
+                    {
+                        e.UseMessageRetry(r => r.Interval(3, 5));
+                        e.ConfigureConsumer<AuctionDeletedConsumer>(context);
+                    });
+
+                    config.ReceiveEndpoint("search-auction-updated", e =>
+                    {
+                        e.UseMessageRetry(r => r.Interval(3, 5));
+                        e.ConfigureConsumer<AuctionUpdatedConsumer>(context);
+                    });
+
                     config.ConfigureEndpoints(context);
                 });
             });

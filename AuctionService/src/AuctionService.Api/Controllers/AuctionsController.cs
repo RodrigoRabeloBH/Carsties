@@ -1,5 +1,6 @@
 ﻿using AuctionService.Domain.DTOs;
 using AuctionService.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionService.Api.Controllers
@@ -37,10 +38,13 @@ namespace AuctionService.Api.Controllers
             return NotFound();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<AuctionDto>> CreateAuction(CreateAuctionDto auctionDto)
         {
-            var result = await _services.Create(auctionDto);
+            string seller = User.Identity.Name;
+
+            var result = await _services.Create(auctionDto, seller);
 
             if (result is not null)
                 return CreatedAtAction(nameof(GetbyId), new { result.Id }, result);
@@ -48,24 +52,28 @@ namespace AuctionService.Api.Controllers
             return BadRequest("Could not save changes to the DB");
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateAuction(Guid id, UpdateAuctionDto updateAuctionDto)
         {
-            var result = await _services.Update(id, updateAuctionDto);
+            string seller = User.Identity.Name;
 
-            if (result is null)
-                return NotFound();
+            var result = await _services.Update(id, updateAuctionDto, seller);
 
-            if (result is not null)
-                return Ok();
+            if (result is null) return Forbid();
+
+            if (result is not null) return Ok();
 
             return BadRequest("Problem saving changes");
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAuction(Guid id)
         {
-            var wasDeleted = await _services.DeleteById(id);
+            string seller = User.Identity.Name;
+
+            var wasDeleted = await _services.DeleteById(id, seller);
 
             if (wasDeleted)
                 return Ok(wasDeleted);

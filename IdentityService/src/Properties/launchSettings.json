@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "IdentityService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "IDENTITY_DB": "Server=localhost:5432;User Id=postgres;Password=postgrespw;Database=identitydb"
+      },
+      "applicationUrl": "http://localhost:5000"      
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
+    }
+  }
+}

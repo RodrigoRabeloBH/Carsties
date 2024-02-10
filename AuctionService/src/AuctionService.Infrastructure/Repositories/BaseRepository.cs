@@ -20,7 +20,7 @@ namespace AuctionService.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<bool>Save()
+        public async Task<bool> Save()
         {
             return await _context.SaveChangesAsync() > 0;
         }
@@ -33,25 +33,23 @@ namespace AuctionService.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[BASE REPOSITORY][CREATE]: {ex.Message}", ex);
+                _logger.LogError(ex, "[BASE REPOSITORY][CREATE] --> Error message: {message}", ex.Message);
 
                 throw;
             }
         }
 
-        public async Task<bool> DeleteById(Guid id)
+        public async Task<bool> DeleteById(T entity)
         {
             try
             {
-                var entity = await GetById(id);
-
                 _context.Set<T>().Remove(entity);
 
                 return await _context.SaveChangesAsync() != 0;
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[BASE REPOSITORY][DELETE]: {ex.Message}", ex);
+                _logger.LogError(ex, "[BASE REPOSITORY][DELETE] --> Error message: {message}", ex.Message);
 
                 throw;
             }
@@ -72,7 +70,7 @@ namespace AuctionService.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[BASE REPOSITORY][GET All]: {ex.Message}", ex);
+                _logger.LogError(ex, "[BASE REPOSITORY][GET ALL] --> Error message: {message}", ex.Message);
 
                 throw;
             }
@@ -90,7 +88,7 @@ namespace AuctionService.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[BASE REPOSITORY][GET BY ID]: {ex.Message}", ex);
+                _logger.LogError(ex, "[BASE REPOSITORY][GET BY ID] --> Error message: {message}", ex.Message);
 
                 throw;
             }
@@ -106,7 +104,7 @@ namespace AuctionService.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[BASE REPOSITORY][ÚPDATE]: {ex.Message}", ex);
+                _logger.LogError(ex, "[BASE REPOSITORY][UPDATE] --> Error message: {message}", ex.Message);
 
                 throw;
             }

@@ -6,8 +6,8 @@ namespace AuctionService.Domain.Interfaces.Services
     {
         Task<List<AuctionDto>> GetAll(string date);
         Task<AuctionDto> GetById(Guid id);
-        Task<AuctionDto> Create(CreateAuctionDto createAuctionDto);
-        Task<AuctionDto> Update(Guid id, UpdateAuctionDto updateAuctionDto);
-        Task<bool> DeleteById(Guid id);
+        Task<AuctionDto> Create(CreateAuctionDto createAuctionDto, string seller);
+        Task<AuctionDto> Update(Guid id, UpdateAuctionDto updateAuctionDto, string seller);
+        Task<bool> DeleteById(Guid id, string seller);
     }
 }

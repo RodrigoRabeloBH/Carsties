@@ -8,7 +8,7 @@ namespace AuctionService.Domain.Interfaces.Repository
         Task<T> GetById(Guid id);
         Task Create(T entity);
         Task<bool> Update(T entity);
-        Task<bool> DeleteById(Guid id);
+        Task<bool> DeleteById(T entity);
         Task<bool> Save();
     }
 }
