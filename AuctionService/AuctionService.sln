@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5FB72870-7634-4FEE-A5E7-4AA839A38135}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.Api", "src\AuctionService.Api\AuctionService.Api.csproj", "{C455C58D-9F54-4585-AC0D-39870E934D73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.Application", "src\AuctionService.Application\AuctionService.Application.csproj", "{00D2871A-C32F-4FB5-AB5E-014C89E8CA44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.CrossCutting", "src\AuctionService.CrossCutting\AuctionService.CrossCutting.csproj", "{7D1ED00E-1A4E-4278-B554-54789C7D76CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.Domain", "src\AuctionService.Domain\AuctionService.Domain.csproj", "{038BEBF0-BBAE-4907-9B34-D3954F9F0E93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.Infrastructure", "src\AuctionService.Infrastructure\AuctionService.Infrastructure.csproj", "{1CB01D25-67E6-4E6D-9DC3-CAFAE49DDE4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionService.Tests", "src\AuctionService.Tests\AuctionService.Tests.csproj", "{291A45A8-9552-4B00-B29F-3881B2A18B25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C455C58D-9F54-4585-AC0D-39870E934D73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C455C58D-9F54-4585-AC0D-39870E934D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C455C58D-9F54-4585-AC0D-39870E934D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C455C58D-9F54-4585-AC0D-39870E934D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00D2871A-C32F-4FB5-AB5E-014C89E8CA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D2871A-C32F-4FB5-AB5E-014C89E8CA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D2871A-C32F-4FB5-AB5E-014C89E8CA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D2871A-C32F-4FB5-AB5E-014C89E8CA44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D1ED00E-1A4E-4278-B554-54789C7D76CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D1ED00E-1A4E-4278-B554-54789C7D76CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D1ED00E-1A4E-4278-B554-54789C7D76CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D1ED00E-1A4E-4278-B554-54789C7D76CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{038BEBF0-BBAE-4907-9B34-D3954F9F0E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{038BEBF0-BBAE-4907-9B34-D3954F9F0E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{038BEBF0-BBAE-4907-9B34-D3954F9F0E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{038BEBF0-BBAE-4907-9B34-D3954F9F0E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CB01D25-67E6-4E6D-9DC3-CAFAE49DDE4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CB01D25-67E6-4E6D-9DC3-CAFAE49DDE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CB01D25-67E6-4E6D-9DC3-CAFAE49DDE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CB01D25-67E6-4E6D-9DC3-CAFAE49DDE4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291A45A8-9552-4B00-B29F-3881B2A18B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291A45A8-9552-4B00-B29F-3881B2A18B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291A45A8-9552-4B00-B29F-3881B2A18B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291A45A8-9552-4B00-B29F-3881B2A18B25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C455C58D-9F54-4585-AC0D-39870E934D73} = {5FB72870-7634-4FEE-A5E7-4AA839A38135}
+		{00D2871A-C32F-4FB5-AB5E-014C89E8CA44} = {5FB72870-7634-4FEE-A5E7-4AA839A38135}
+		{7D1ED00E-1A4E-4278-B554-54789C7D76CA} = {5FB72870-7634-4FEE-A5E7-4AA839A38135}
+		{038BEBF0-BBAE-4907-9B34-D3954F9F0E93} = {5FB72870-7634-4FEE-A5E7-4AA839A38135}
+		{1CB01D25-67E6-4E6D-9DC3-CAFAE49DDE4C} = {5FB72870-7634-4FEE-A5E7-4AA839A38135}
+		{291A45A8-9552-4B00-B29F-3881B2A18B25} = {5FB72870-7634-4FEE-A5E7-4AA839A38135}
+	EndGlobalSection
+EndGlobal

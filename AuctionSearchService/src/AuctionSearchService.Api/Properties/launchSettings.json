@@ -1,0 +1,21 @@
+{
+  "profiles": {
+    "AuctionSearchService": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASE": "SearchDB",
+        "MONGODB_CONNECTION": "mongodb://root:mongopw@localhost",
+        "AUCTION_SERVICE_URL": "http://localhost:7001"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:7002"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
