@@ -41,7 +41,7 @@ public class Index : PageModel
     [BindProperty]
     public InputModel Input { get; set; } = default!;
 
-    public async Task<IActionResult> OnGet(string? userCode)
+    public async Task<IActionResult> OnGet(string userCode)
     {
         if (String.IsNullOrWhiteSpace(userCode))
         {

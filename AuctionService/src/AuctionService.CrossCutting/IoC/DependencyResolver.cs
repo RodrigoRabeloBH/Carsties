@@ -20,7 +20,7 @@ namespace AuctionService.CrossCutting.IoC
             RegisterRepositories(services);
             RegisterServices(services);
             RegisterDatabases(services, configuration);
-            RegisterMassTransit(services);
+            RegisterMassTransit(services, configuration);
 
             return services;
         }
@@ -44,8 +44,12 @@ namespace AuctionService.CrossCutting.IoC
             services.AddScoped<IAuctionServices, AuctionServices>();
         }
 
-        private static void RegisterMassTransit(IServiceCollection services)
+        private static void RegisterMassTransit(IServiceCollection services, IConfiguration configuration)
         {
+            string user = configuration["RABBIT_USER"] ?? "guest";
+
+            string password = configuration["RABBIT_PASSWORD"] ?? "guest";
+
             services.AddMassTransit(x =>
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
@@ -61,6 +65,12 @@ namespace AuctionService.CrossCutting.IoC
 
                 x.UsingRabbitMq((context, config) =>
                 {
+                    config.Host(configuration["RABBIT_HOST"], "/", host =>
+                    {
+                        host.Username(user);
+                        host.Password(password);
+                    });
+
                     config.ConfigureEndpoints(context);
                 });
             });

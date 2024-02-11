@@ -21,3 +21,49 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+  identity-svc:
+    image: rasr88/identity-svc:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+80
+      - IDENTITY_DB=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identitydb
+    ports:
+      - 5000:80
+    depends_on:
+      - postgres
+  gateway-svc:
+    image: rasr88/gateway-svc:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+80      
+    ports:
+      - 6001:80
+  auction-svc:
+    image: rasr88/auction-svc:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+80
+      - RABBIT_HOST=rabbitmq
+      - AUCTION_DB=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=auctions
+      - IDENTITY_SERVICE_URL=http://identity-svc
+    ports:
+      - 7001:80
+    depends_on:
+      - postgres
+      - rabbitmq 
+      - identity-svc
+  auction-search-svc:
+    image: rasr88/auction-search-svc:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+80
+      - MONGODB_CONNECTION=mongodb://root:mongopw@mongo
+      - DATABASE=SearchDB
+      - RABBIT_HOST=rabbitmq
+      - AUCTION_SERVICE_URL=http://auction-svc
+    ports:
+      - 7002:80
+    depends_on:
+      - mongo
+      - rabbitmq
+      - auction-svc  

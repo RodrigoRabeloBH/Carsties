@@ -16,10 +16,16 @@ public class Index : PageModel
 
     public async Task<IActionResult> OnGet()
     {
-        var localAddresses = new List<string?> { "127.0.0.1", "::1" };
-        if(HttpContext.Connection.LocalIpAddress != null)
+        var localAddresses = new List<string> { "::ffff:172.26.0.1", "127.0.0.1", "::1" };
+
+        if (HttpContext.Connection.LocalIpAddress != null)
         {
             localAddresses.Add(HttpContext.Connection.LocalIpAddress.ToString());
+        }
+
+        if (HttpContext.Connection.RemoteIpAddress != null)
+        {
+            localAddresses.Add(HttpContext.Connection.RemoteIpAddress.ToString());
         }
 
         if (!localAddresses.Contains(HttpContext.Connection.RemoteIpAddress?.ToString()))
@@ -28,7 +34,7 @@ public class Index : PageModel
         }
 
         View = new ViewModel(await HttpContext.AuthenticateAsync());
-            
+
         return Page();
     }
 }

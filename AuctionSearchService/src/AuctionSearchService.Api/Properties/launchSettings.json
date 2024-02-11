@@ -6,7 +6,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DATABASE": "SearchDB",
         "MONGODB_CONNECTION": "mongodb://root:mongopw@localhost",
-        "AUCTION_SERVICE_URL": "http://localhost:7001"
+        "AUCTION_SERVICE_URL": "http://localhost:7001",
+        "RABBIT_HOST": "localhost",
+        "RABBIT_USER": "",
+        "RABBIT_PASSWORD": ""
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:7002"

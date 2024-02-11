@@ -5,22 +5,22 @@ namespace IdentityService.Pages;
 
 internal static class Log
 {
-	private static readonly Action<ILogger, string?, Exception?> _invalidId = LoggerMessage.Define<string?>(
+	private static readonly Action<ILogger, string, Exception?> _invalidId = LoggerMessage.Define<string>(
 	    LogLevel.Error,
 	    EventIds.InvalidId,
 	    "Invalid id {Id}");
 
-    public static void InvalidId(this ILogger logger, string? id)
+    public static void InvalidId(this ILogger logger, string id)
     {
         _invalidId(logger, id, null);
     }
 
-	private static readonly Action<ILogger, string?, Exception?> _invalidBackchannelLoginId = LoggerMessage.Define<string?>(
+	private static readonly Action<ILogger, string, Exception?> _invalidBackchannelLoginId = LoggerMessage.Define<string>(
 	LogLevel.Warning,
 	EventIds.InvalidBackchannelLoginId,
 	"Invalid backchannel login id {Id}");
 
-	public static void InvalidBackchannelLoginId(this ILogger logger, string? id)
+	public static void InvalidBackchannelLoginId(this ILogger logger, string id)
 	{
 		_invalidBackchannelLoginId(logger, id, null);
 	}
