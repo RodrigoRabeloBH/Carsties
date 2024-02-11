@@ -6,16 +6,16 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/IdentityService.csproj", "src/"]
-RUN dotnet restore "src/IdentityService.csproj"
+COPY ["GatewayService.csproj", "."]
+RUN dotnet restore "./GatewayService.csproj"
 COPY . .
-WORKDIR "/src/src"
-RUN dotnet build "IdentityService.csproj" -c Release -o /app/build
+WORKDIR "/src/."
+RUN dotnet build "GatewayService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "IdentityService.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GatewayService.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "IdentityService.dll"]
+ENTRYPOINT ["dotnet", "GatewayService.dll"]

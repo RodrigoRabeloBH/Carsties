@@ -50,8 +50,8 @@ services:
       - 7001:80
     depends_on:
       - postgres
-      - rabbitmq 
-      - identity-svc
+      - rabbitmq
+      - identity-svc      
   auction-search-svc:
     image: rasr88/auction-search-svc:latest
     environment:

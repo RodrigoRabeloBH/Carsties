@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSearchService.Api", "AuctionSearchService.Api\AuctionSearchService.Api.csproj", "{87DF4DA7-0B18-451A-9500-F20205DC997D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSearchService.Application", "AuctionSearchService.Application\AuctionSearchService.Application.csproj", "{AB10B544-BBFF-4A97-B84E-CA16F6C13AB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSearchService.CrossCutting", "AuctionSearchService.CrossCutting\AuctionSearchService.CrossCutting.csproj", "{F3655698-D5F6-4F3C-B748-E337E2BE7FF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSearchService.Domain", "AuctionSearchService.Domain\AuctionSearchService.Domain.csproj", "{A5CAF28B-1178-4513-9510-CF64C9304901}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSearchService.Infrastructure", "AuctionSearchService.Infrastructure\AuctionSearchService.Infrastructure.csproj", "{7DB51A8C-B2E3-4D1E-98E7-BA70C3605E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSearchService.Tests", "AuctionSearchService.Tests\AuctionSearchService.Tests.csproj", "{52CEED5E-0876-4360-B836-9BE5882B51AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87DF4DA7-0B18-451A-9500-F20205DC997D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87DF4DA7-0B18-451A-9500-F20205DC997D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87DF4DA7-0B18-451A-9500-F20205DC997D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87DF4DA7-0B18-451A-9500-F20205DC997D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB10B544-BBFF-4A97-B84E-CA16F6C13AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB10B544-BBFF-4A97-B84E-CA16F6C13AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB10B544-BBFF-4A97-B84E-CA16F6C13AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB10B544-BBFF-4A97-B84E-CA16F6C13AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3655698-D5F6-4F3C-B748-E337E2BE7FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3655698-D5F6-4F3C-B748-E337E2BE7FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3655698-D5F6-4F3C-B748-E337E2BE7FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3655698-D5F6-4F3C-B748-E337E2BE7FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CAF28B-1178-4513-9510-CF64C9304901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CAF28B-1178-4513-9510-CF64C9304901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CAF28B-1178-4513-9510-CF64C9304901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CAF28B-1178-4513-9510-CF64C9304901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB51A8C-B2E3-4D1E-98E7-BA70C3605E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB51A8C-B2E3-4D1E-98E7-BA70C3605E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB51A8C-B2E3-4D1E-98E7-BA70C3605E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB51A8C-B2E3-4D1E-98E7-BA70C3605E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52CEED5E-0876-4360-B836-9BE5882B51AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52CEED5E-0876-4360-B836-9BE5882B51AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52CEED5E-0876-4360-B836-9BE5882B51AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52CEED5E-0876-4360-B836-9BE5882B51AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
