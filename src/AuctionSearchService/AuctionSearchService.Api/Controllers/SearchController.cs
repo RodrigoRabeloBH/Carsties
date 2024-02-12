@@ -21,8 +21,6 @@ namespace AuctionSearchService.Api.Controllers
         {
             var items = await _services.GetAllItems(searchParams);
 
-            if (!items.Results.Any()) return NotFound();
-
             return items;
         }
     }

@@ -2,7 +2,6 @@
 using AuctionSearchService.Domain.Interfaces.Services;
 using AuctionSearchService.Domain.Models;
 using AuctionSearchService.Domain.RequestHelper;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -28,17 +27,6 @@ namespace AuctionSearchService.Tests.Controller
             Assert.IsType<ItemsResult>(result.Value);
             Assert.Equal(4, result.Value.Results.Count);
         }
-
-        [Fact]
-        public async Task SearchItems_Should_Return_NotFound()
-        {
-            _servicesMock.Setup(x => x.GetAllItems(It.IsAny<SearchParams>())).ReturnsAsync(new ItemsResult { Results = new List<Item>() });
-
-            var result = await _sut.SearchItems(new());
-
-            Assert.IsType<NotFoundResult>(result.Result);
-        }
-
         private static ItemsResult GetItemsResult()
         {
             var items = new ItemsResult
