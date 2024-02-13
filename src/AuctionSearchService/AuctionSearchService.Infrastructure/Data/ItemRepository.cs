@@ -54,7 +54,7 @@ namespace AuctionSearchService.Infrastructure.Data
 
             query = searchParams.OrderBy switch
             {
-                "make" => query.Sort(s => s.Ascending(i => i.Make)),
+                "make" => query.Sort(s => s.Ascending(i => i.Make)).Sort(x => x.Ascending(a => a.Model)),
                 "new" => query.Sort(s => s.Descending(i => i.CreateAt)),
                 _ => query.Sort(s => s.Ascending(i => i.AuctionEnd))
             };
