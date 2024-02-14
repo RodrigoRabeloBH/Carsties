@@ -19,7 +19,9 @@ export default function Listings() {
         pageSize: state.pageSize,
         searchTerm: state.searchTerm,
         orderBy: state.orderBy,
-        filterBy: state.filterBy
+        filterBy: state.filterBy,
+        seller: state.seller,
+        winner: state.winner,
     }), shallow);
 
     const setParams = useParamsStore(state => state.setParams);
@@ -29,11 +31,13 @@ export default function Listings() {
     }
 
     useEffect(() => {
-        getData(params.pageNumber, params.pageSize, params.searchTerm, params.orderBy, params.filterBy)
+        getData(params.pageNumber, params.pageSize,
+            params.searchTerm, params.orderBy, params.filterBy,
+            params.seller, params.winner)
             .then(data => {
                 setData(data);
             })
-    }, [params.pageNumber, params.pageSize, params.searchTerm, params.orderBy, params.filterBy]);
+    }, [params.pageNumber, params.pageSize, params.searchTerm, params.orderBy, params.filterBy, params.seller, params.winner]);
 
     if (!data)
         return <h3>Loading ...</h3>

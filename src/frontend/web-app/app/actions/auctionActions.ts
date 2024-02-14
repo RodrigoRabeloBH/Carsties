@@ -1,35 +1,34 @@
 'use server'
 
 import { PageResult, Auction } from "@/types";
-import { getTokenWorkaround } from "./authActions";
+import { fetchWrapper } from "@/lib/fetchWrapper";
+import { FieldValues } from "react-hook-form";
+import { revalidatePath } from "next/cache";
 
-export async function getData(pageNumber: number, pageSize: number, searchTerm: string, orderBy: string, filterBy: string): Promise<PageResult<Auction>> {
+export async function getData(
+    pageNumber: number, pageSize: number,
+    searchTerm: string, orderBy: string, filterBy: string,
+    seller?: string | undefined | null, winner?: string | undefined | null): Promise<PageResult<Auction>> {
 
-    const res = await fetch(`http://localhost:6001/search?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}&orderBy=${orderBy}&filterBy=${filterBy}`);
+    const response = await fetchWrapper
+        .get(`/search?pageNumber=${pageNumber}&pageSize=${pageSize}&searchTerm=${searchTerm}&orderBy=${orderBy}&filterBy=${filterBy}&seller=${seller}&winner=${winner}`);
 
-    if (!res.ok)
-        throw Error('Failed to fetch data');
-
-    return res.json();
+    return response;
 }
 
-export async function updateAuctionTest() {
-    const data = {
-        mileage: Math.floor(Math.random() * 10000) + 1
-    }
+export async function updateAuction(data: FieldValues, id: string) {
+    const res = await fetchWrapper.put('/auctions/' + id, data);
+    revalidatePath(`/auctions/${id}`);
+    return res;
+}
 
-    const token = await getTokenWorkaround();
+export async function createAuction(data: FieldValues) {
+    return await fetchWrapper.post('/auctions', data);
+}
 
-    const res = await fetch('http://localhost:6001/auctions/6a5011a1-fe1f-47df-9a32-b5346b289391', {
-        method: 'PUT',
-        headers: {
-            'Content-type': 'application/json',
-            'Authorization': 'Bearer ' + token?.access_token
-        },
-        body: JSON.stringify(data)
-    });
-
-    if (!res.ok) return { status: res.status, message: res.statusText }
-
-    return res.statusText;
+export async function deleteAuction(id: string) {
+    return await fetchWrapper.del('/auctions/' + id);
+}
+export async function getDetailedViewData(id: string): Promise<Auction> {
+    return await fetchWrapper.get('/auctions/' + id);
 }
