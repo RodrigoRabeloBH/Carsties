@@ -36,7 +36,7 @@ namespace AuctionService.Infrastructure.Consumers
 
                 auction.Status = auction.SoldAmount > auction.ReservePrice ? Status.Finished : Status.ReserveNotMet;
 
-                await _rep.Save();
+                await _rep.Update(auction);
             }
             catch (Exception ex)
             {

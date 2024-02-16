@@ -1,8 +1,7 @@
 ﻿using AuctionContracts;
-using AuctionSearchService.Domain.Models;
+using AuctionSearchService.Domain.Interfaces.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using MongoDB.Entities;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AuctionSearchService.Infrastructure.Consumers
@@ -11,10 +10,12 @@ namespace AuctionSearchService.Infrastructure.Consumers
     public class AuctionDeletedConsumer : IConsumer<AuctionDeleted>
     {
         private readonly ILogger<AuctionUpdated> _logger;
+        private readonly IItemRepository _rep;
 
-        public AuctionDeletedConsumer(ILogger<AuctionUpdated> logger)
+        public AuctionDeletedConsumer(ILogger<AuctionUpdated> logger, IItemRepository rep)
         {
             _logger = logger;
+            _rep = rep;
         }
 
         public async Task Consume(ConsumeContext<AuctionDeleted> context)
@@ -23,10 +24,7 @@ namespace AuctionSearchService.Infrastructure.Consumers
             {
                 _logger.LogInformation("[AUCTION DELETED CONSUMER] --> Consuming auction deleted with id message: {id} ", context.Message.Id);
 
-                var result = await DB.DeleteAsync<Item>(context.Message.Id);
-
-                if (!result.IsAcknowledged)
-                    throw new MessageException(typeof(AuctionDeleted), "Problem deleting message from mongodb");
+                await _rep.DeleteAsync(context.Message.Id);
             }
             catch (Exception ex)
             {

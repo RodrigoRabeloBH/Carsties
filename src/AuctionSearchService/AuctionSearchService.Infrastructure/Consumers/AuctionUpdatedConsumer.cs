@@ -1,9 +1,9 @@
 ﻿using AuctionContracts;
+using AuctionSearchService.Domain.Interfaces.Repositories;
 using AuctionSearchService.Domain.Models;
 using AutoMapper;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using MongoDB.Entities;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AuctionSearchService.Infrastructure.Consumers
@@ -13,11 +13,13 @@ namespace AuctionSearchService.Infrastructure.Consumers
     {
         private readonly IMapper _mapper;
         private readonly ILogger<AuctionUpdated> _logger;
+        private readonly IItemRepository _rep;
 
-        public AuctionUpdatedConsumer(IMapper mapper, ILogger<AuctionUpdated> logger)
+        public AuctionUpdatedConsumer(IMapper mapper, ILogger<AuctionUpdated> logger, IItemRepository rep)
         {
             _mapper = mapper;
             _logger = logger;
+            _rep = rep;
         }
 
         public async Task Consume(ConsumeContext<AuctionUpdated> context)
@@ -28,20 +30,7 @@ namespace AuctionSearchService.Infrastructure.Consumers
 
                 var item = _mapper.Map<Item>(context.Message);
 
-                var result = await DB.Update<Item>()
-                    .Match(a => a.ID == context.Message.Id)
-                    .ModifyOnly(i => new
-                    {
-                        i.Color,
-                        i.Make,
-                        i.Model,
-                        i.Year,
-                        i.Mileage
-                    }, item)
-                    .ExecuteAsync();
-
-                if (!result.IsAcknowledged)
-                    throw new MessageException(typeof(AuctionUpdated), "Problem updating mongodb");
+                await _rep.UpdateAsync(item, context.Message.Id);
             }
             catch (Exception ex)
             {

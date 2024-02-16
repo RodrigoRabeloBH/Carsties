@@ -1,8 +1,7 @@
 ﻿using AuctionContracts;
-using AuctionSearchService.Domain.Models;
+using AuctionSearchService.Domain.Interfaces.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using MongoDB.Entities;
 
 namespace AuctionSearchService.Infrastructure.Consumers
 {
@@ -10,22 +9,25 @@ namespace AuctionSearchService.Infrastructure.Consumers
     {
         private readonly ILogger<BidPlacedConsumer> _logger;
 
-        public BidPlacedConsumer(ILogger<BidPlacedConsumer> logger)
+        private readonly IItemRepository _rep;
+
+        public BidPlacedConsumer(ILogger<BidPlacedConsumer> logger, IItemRepository rep)
         {
             _logger = logger;
+            _rep = rep;
         }
 
         public async Task Consume(ConsumeContext<BidPlaced> context)
         {
             try
             {
-                var auction = await DB.Find<Item>().OneAsync(context.Message.AuctionId);
+                var auction = await _rep.GetById(context.Message.Id);
 
                 if (context.Message.BidStatus.Contains("Accepted") && context.Message.Amount > auction.CurrentHighBid)
                 {
                     auction.CurrentHighBid = context.Message.Amount;
 
-                    await auction.SaveAsync();
+                    await _rep.SaveAsync(auction);
                 }
             }
             catch (Exception ex)

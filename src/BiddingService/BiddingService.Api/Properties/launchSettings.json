@@ -1,0 +1,27 @@
+{
+  "profiles": {
+    "BiddingService": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DATABASE": "BidDb",
+        "MONGODB_CONNECTION": "mongodb://root:mongopw@localhost",
+        "IDENTITY_SERVICE_URL": "http://localhost:5000",
+        "RABBIT_HOST": "localhost",
+        "RABBIT_USER": "",
+        "RABBIT_PASSWORD": ""
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:7003"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}

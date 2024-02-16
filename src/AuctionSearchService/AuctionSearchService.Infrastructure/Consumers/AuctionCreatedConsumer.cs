@@ -1,9 +1,9 @@
 ﻿using AuctionContracts;
+using AuctionSearchService.Domain.Interfaces.Repositories;
 using AuctionSearchService.Domain.Models;
 using AutoMapper;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using MongoDB.Entities;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AuctionSearchService.Infrastructure.Consumers
@@ -13,11 +13,13 @@ namespace AuctionSearchService.Infrastructure.Consumers
     {
         private readonly IMapper _mapper;
         private readonly ILogger<AuctionCreatedConsumer> _logger;
+        private readonly IItemRepository _rep;
 
-        public AuctionCreatedConsumer(IMapper mapper, ILogger<AuctionCreatedConsumer> logger)
+        public AuctionCreatedConsumer(IMapper mapper, ILogger<AuctionCreatedConsumer> logger, IItemRepository rep)
         {
             _mapper = mapper;
             _logger = logger;
+            _rep = rep;
         }
 
         public async Task Consume(ConsumeContext<AuctionCreated> context)
@@ -28,8 +30,7 @@ namespace AuctionSearchService.Infrastructure.Consumers
 
                 var item = _mapper.Map<Item>(context.Message);
 
-                await item.SaveAsync();
-
+                await _rep.SaveAsync(item);
             }
             catch (Exception ex)
             {

@@ -54,7 +54,7 @@ namespace AuctionService.CrossCutting.IoC
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
 
-                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter(false));
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction",false));
 
                 x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
                 {

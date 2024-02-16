@@ -33,7 +33,7 @@ namespace AuctionService.Infrastructure.Consumers
                 {
                     auction.CurrentHighBid = context.Message.Amount;
 
-                    await _rep.Save();
+                    await _rep.Update(auction);
                 }
             }
             catch (Exception ex)
