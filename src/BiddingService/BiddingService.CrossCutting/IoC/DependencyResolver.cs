@@ -19,6 +19,8 @@ namespace BiddingService.CrossCutting.IoC
             RegisterServices(services);
             RegisterRepositories(services);
 
+            services.AddHostedService<CheckAuctionFinishedService>();
+
             return services;
         }
 

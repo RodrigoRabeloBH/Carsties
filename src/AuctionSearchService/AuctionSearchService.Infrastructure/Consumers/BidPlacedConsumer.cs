@@ -21,7 +21,7 @@ namespace AuctionSearchService.Infrastructure.Consumers
         {
             try
             {
-                var auction = await _rep.GetById(context.Message.Id);
+                var auction = await _rep.GetById(context.Message.AuctionId);
 
                 if (context.Message.BidStatus.Contains("Accepted") && context.Message.Amount > auction.CurrentHighBid)
                 {
