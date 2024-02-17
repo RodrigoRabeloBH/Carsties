@@ -90,3 +90,13 @@ services:
       - rabbitmq
       - auction-svc
       - identity-svc
+  notification-svc:
+    image: rasr88/notification-svc:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMq__Host=rabbitmq
+    ports:
+      - 7004:80
+    depends_on:
+      - rabbitmq  

@@ -14,10 +14,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("customPolicy", c =>
+    {
+        c.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .WithOrigins(builder.Configuration["ClientApp"]);
+    });
+});
+
 var app = builder.Build();
 
+app.UseCors();
 app.MapReverseProxy();
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.Run();
