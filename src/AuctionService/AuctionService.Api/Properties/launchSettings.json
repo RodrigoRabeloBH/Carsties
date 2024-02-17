@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
     "AuctionService.Api": {
       "commandName": "Project",
@@ -9,16 +10,7 @@
         "RABBIT_HOST": "localhost",
         "RABBIT_USER": "",
         "RABBIT_PASSWORD": ""
-
-      },
-      "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:7001"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true
+      }
     }
-  },
-  "$schema": "https://json.schemastore.org/launchsettings.json"
+  }
 }

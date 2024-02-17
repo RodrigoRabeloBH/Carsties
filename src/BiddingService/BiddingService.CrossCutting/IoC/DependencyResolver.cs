@@ -27,6 +27,7 @@ namespace BiddingService.CrossCutting.IoC
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IBidServices, BidServices>();
+            services.AddScoped<IGrpcAuctionClient, GrpcAuctionClient>();
         }
 
         private static void RegisterRepositories(IServiceCollection services)

@@ -1,3 +1,4 @@
+using AuctionService.Application.Services;
 using AuctionService.CrossCutting.IoC;
 using AuctionService.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,8 +27,8 @@ var app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+app.MapGrpcService<GrpcAuctionService>();
 
 DbInitializer.InitDb(app.Services);
 

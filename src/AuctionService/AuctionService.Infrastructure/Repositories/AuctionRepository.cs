@@ -28,7 +28,7 @@ namespace AuctionService.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[AUCTION REPOSITORY][GET ALL AUCTIONS] - Error: {ex.Message}", ex);
+                _logger.LogError(ex, "[AUCTION REPOSITORY][GET ALL AUCTIONS] - Error: {error}", ex.Message);
 
                 throw;
             }
@@ -45,7 +45,7 @@ namespace AuctionService.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[AUCTION REPOSITORY][GET ALL AUCTIONS] - Error: {ex.Message}", ex);
+                _logger.LogError(ex, "[AUCTION REPOSITORY][GET ALL AUCTIONS] - Error: {error}", ex.Message);
 
                 throw;
             }

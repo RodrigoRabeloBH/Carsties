@@ -25,7 +25,7 @@ services:
     image: rasr88/identity-svc:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=http://+80
+      - ASPNETCORE_URLS=http://+:80
       - IDENTITY_DB=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identitydb
     ports:
       - 5000:80
@@ -35,28 +35,34 @@ services:
     image: rasr88/gateway-svc:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=http://+80      
+      - ASPNETCORE_URLS=http://+:80      
     ports:
       - 6001:80
   auction-svc:
     image: rasr88/auction-svc:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+80
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:7777
       - RABBIT_HOST=rabbitmq
       - AUCTION_DB=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=auctions
       - IDENTITY_SERVICE_URL=http://identity-svc
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+      - Kestrel__Endpoints__Grpc__Url=http://+:7777
+      - Kestrel__Endpoints__WebApi__Protocols=Http1
+      - Kestrel__Endpoints__WebApi__Url=http://+:80
     ports:
       - 7001:80
+      - 7777:7777
     depends_on:
       - postgres
       - rabbitmq
       - identity-svc      
-  auction-search-svc:
+  search-svc:
     image: rasr88/auction-search-svc:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+80
+      - ASPNETCORE_URLS=http://+:80
       - MONGODB_CONNECTION=mongodb://root:mongopw@mongo
       - DATABASE=SearchDB
       - RABBIT_HOST=rabbitmq
@@ -66,4 +72,21 @@ services:
     depends_on:
       - mongo
       - rabbitmq
-      - auction-svc  
+      - auction-svc
+  bid-svc:
+    image: rasr88/bid-svc:latest
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RABBIT_HOST=rabbitmq
+      - MONGODB_CONNECTION=mongodb://root:mongopw@mongo
+      - IDENTITY_SERVICE_URL=http://identity-svc
+      - GRPC_AUCTION=http://auction-svc:7777
+      - DATABASE=BidDb
+    ports:
+      - 7003:80
+    depends_on:
+      - mongo
+      - rabbitmq
+      - auction-svc
+      - identity-svc

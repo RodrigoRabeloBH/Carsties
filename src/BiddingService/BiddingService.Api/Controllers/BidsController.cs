@@ -3,6 +3,7 @@ using BiddingService.Domain.Interfaces.Services;
 using BiddingService.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace BiddingService.Api.Controllers
 {
@@ -11,10 +12,12 @@ namespace BiddingService.Api.Controllers
     public class BidsController : ControllerBase
     {
         private readonly IBidServices _service;
+        private readonly IGrpcAuctionClient _grpcClient;
 
-        public BidsController(IBidServices service)
+        public BidsController(IBidServices service, IGrpcAuctionClient grpcClient)
         {
             _service = service;
+            _grpcClient = grpcClient;
         }
 
         [Authorize]
@@ -26,7 +29,13 @@ namespace BiddingService.Api.Controllers
             var auction = await _service.GetAuction(auctionId);
 
             if (auction == null)
-                return NotFound();
+            {
+                auction = _grpcClient.GetAuction(auctionId);
+
+                if (auction == null)
+                    return BadRequest("Cannot accept bids on this auction at this time");
+            }
+
 
             if (!string.IsNullOrEmpty(username) && auction.Seller == username)
                 return BadRequest("You cannot bid on your own auction");

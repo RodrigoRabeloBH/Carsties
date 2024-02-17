@@ -42,6 +42,7 @@ namespace AuctionService.CrossCutting.IoC
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IAuctionServices, AuctionServices>();
+            services.AddGrpc();
         }
 
         private static void RegisterMassTransit(IServiceCollection services, IConfiguration configuration)
@@ -54,7 +55,7 @@ namespace AuctionService.CrossCutting.IoC
             {
                 x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
 
-                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction",false));
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
 
                 x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
                 {
