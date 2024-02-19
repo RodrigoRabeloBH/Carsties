@@ -20,7 +20,9 @@ export default function BidList({ user, auction }: Props) {
     const [loading, setLoading] = useState(true);
     let bids = useBidStore(state => state.bids);
     const setBids = useBidStore(state => state.setBids);
-    const now = new Date().toISOString();
+    const open = useBidStore(state => state.open);
+    const setOpen = useBidStore(state => state.setOpen);
+    const openForBids = new Date(auction.auctionEnd) > new Date();
 
     bids = bids.length === undefined ? [] : bids;
 
@@ -38,6 +40,10 @@ export default function BidList({ user, auction }: Props) {
                 setLoading(false);
             });
     }, [auction.id, setLoading, setBids]);
+
+    useEffect(() => {
+        setOpen(openForBids);
+    }, [openForBids, setOpen]);
 
     if (loading)
         return <span>Loading bids ...</span>
@@ -68,9 +74,9 @@ export default function BidList({ user, auction }: Props) {
                     <div className='flex items-center justify-center p-2 text-lg font-semibold'>
                         You cannot bid on your own auction
                     </div>
-                ) : auction.auctionEnd < now ? (
+                ) : !open ? (
                     <div className='flex items-center justify-center p-2 text-lg font-semibold'>
-                        You cannot bid on auction finished
+                        This auction has finished
                     </div>
                 ) : (
                     <BidForm auctionId={auction.id} highBid={highBid} />

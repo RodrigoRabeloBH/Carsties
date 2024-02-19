@@ -1,15 +1,21 @@
 'use client'
 import { useAuctionStore } from '@/hooks/useAuctionStore';
 import { useBidStore } from '@/hooks/useBidStore';
-import { Bid } from '@/types';
+import { Auction, AuctionFinished, Bid } from '@/types';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
+import { User } from 'next-auth';
 import { ReactNode, useEffect, useState } from 'react'
+import AuctionCreatedToast from '../components/AuctionCreatedToast';
+import toast from 'react-hot-toast';
+import AuctionFinishedToast from '../components/AuctionFinishedToast';
+import { getDetailedViewData } from '../actions/auctionActions';
 
 type Props = {
-    children: ReactNode
+    children: ReactNode;
+    user: User | null;
 }
 
-export default function SignalRProvider({ children }: Props) {
+export default function SignalRProvider({ children, user }: Props) {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const setCurrentPrice = useAuctionStore(state => state.setCurrentPrice);
     const addBid = useBidStore(state => state.addBid);
@@ -32,7 +38,22 @@ export default function SignalRProvider({ children }: Props) {
                             setCurrentPrice(bid.auctionId, bid.amount);
                         }
                         addBid(bid);
-                    })
+                    });
+
+                    connection.on('AuctionCreated', (auction: Auction) => {
+                        if (user?.username !== auction.seller) {
+                            return toast(<AuctionCreatedToast auction={auction} />, { duration: 5000 });
+                        }
+                    });
+
+                    connection.on('AuctionFinished', (finishedAuction: AuctionFinished) => {
+                        const auction = getDetailedViewData(finishedAuction.auctionId);
+                        return toast.promise(auction, {
+                            loading: 'loading',
+                            success: (auction) => <AuctionFinishedToast auction={auction} finishedAuction={finishedAuction} />,
+                            error: () => 'Auction finished'
+                        }, { duration: 1000, icon: null });
+                    });
                 })
                 .catch(error => console.log(error));
         }
