@@ -12,10 +12,14 @@ type Action = {
     setOpen: (value: boolean) => void;
 }
 
+const initialState: State = {
+    bids: new Array<Bid>(),
+    open: true
+}
+
 
 export const useBidStore = createWithEqualityFn<State & Action>((set) => ({
-    bids: [],
-    open: true,
+    ...initialState,
     setBids: (bids: Bid[]) => {
         set(() => ({
             bids: bids

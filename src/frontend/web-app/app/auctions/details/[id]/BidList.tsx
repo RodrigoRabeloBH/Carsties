@@ -18,20 +18,16 @@ type Props = {
 
 export default function BidList({ user, auction }: Props) {
     const [loading, setLoading] = useState(true);
-    let bids = useBidStore(state => state.bids);
+    const bids = useBidStore(state => state.bids);
     const setBids = useBidStore(state => state.setBids);
     const open = useBidStore(state => state.open);
     const setOpen = useBidStore(state => state.setOpen);
     const openForBids = new Date(auction.auctionEnd) > new Date();
 
-    bids = bids.length === undefined ? [] : bids;
-
-    const highBid = bids.reduce((prev, current) => prev > current.amount ? prev : current.amount, 0);
-
     useEffect(() => {
         getBidsForAuction(auction.id)
-            .then((res: Bid[]) => {
-                setBids(res as Bid[]);
+            .then((bids: Bid[]) => {
+                setBids(bids);
             })
             .catch(error => {
                 toast.error(error.message);
@@ -44,6 +40,8 @@ export default function BidList({ user, auction }: Props) {
     useEffect(() => {
         setOpen(openForBids);
     }, [openForBids, setOpen]);
+
+    const highBid = bids.reduce((prev, current) => prev > current.amount ? prev : current.amount, 0);
 
     if (loading)
         return <span>Loading bids ...</span>

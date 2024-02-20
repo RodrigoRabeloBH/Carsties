@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function BidForm({ auctionId, highBid }: Props) {
-    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
+    const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm();
     const addBid = useBidStore(state => state.addBid);
 
     function onSubmit(data: FieldValues) {
@@ -24,7 +24,8 @@ export default function BidForm({ auctionId, highBid }: Props) {
         }
         placeBidForAuction(auctionId, +data.amount)
             .then(bid => {
-                if (bid.error) throw bid.error;
+                if (bid.error)
+                    throw bid.error;                
                 addBid(bid);
                 toast.success('Bid added successfully');
             }).catch(error => {

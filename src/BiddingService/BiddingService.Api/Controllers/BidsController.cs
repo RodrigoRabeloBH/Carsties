@@ -57,9 +57,6 @@ namespace BiddingService.Api.Controllers
         {
             var bids = await _service.GetAllBidsByAuctionId(auctionId);
 
-            if (bids == null || !bids.Any())
-                return NotFound();
-
             return bids;
         }
     }
