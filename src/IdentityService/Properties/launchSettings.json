@@ -5,9 +5,11 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "IDENTITY_DB": "Server=localhost:5432;User Id=postgres;Password=postgrespw;Database=identitydb"
+        "IDENTITY_DB": "Server=localhost:5432;User Id=postgres;Password=postgrespw;Database=identitydb",
+        "CLIENT_APP": "http://localhost:3000"
+
       },
-      "applicationUrl": "http://localhost:5000"      
+      "applicationUrl": "http://localhost:5000"
     },
     "Docker": {
       "commandName": "Docker",
