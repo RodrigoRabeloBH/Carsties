@@ -6,11 +6,12 @@ import { updateAuction } from '../actions/auctionActions';
 export default function AuthTest() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<any>();
+    const id: string = '';
 
     function doUpdate() {
         setResult(undefined);
         setLoading(true);
-        updateAuction(null)
+        updateAuction({}, id)
             .then(res => setResult(res))
             .finally(() => setLoading(false));
     }

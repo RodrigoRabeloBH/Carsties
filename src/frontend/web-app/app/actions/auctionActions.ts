@@ -1,9 +1,10 @@
 'use server'
 
 import { PageResult, Auction, Bid } from "@/types";
-import { fetchWrapper } from "@/lib/fetchWrapper";
+
 import { FieldValues } from "react-hook-form";
 import { revalidatePath } from "next/cache";
+import { fetchWrapper } from "../lib/fetchWrapper";
 
 export async function getData(
     pageNumber: number, pageSize: number,
