@@ -19,15 +19,18 @@ export default function SignalRProvider({ children, user }: Props) {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const setCurrentPrice = useAuctionStore(state => state.setCurrentPrice);
     const addBid = useBidStore(state => state.addBid);
+    const upiUrl = process.env.NODE_ENV === 'production'
+        ? 'http://165.232.159.103:6001/notifications'
+        : process.env.NEXT_PUBLIC_NOTIFY_URL!
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl(process.env.NEXT_PUBLIC_NOTIFY_URL!)
+            .withUrl(upiUrl!)
             .withAutomaticReconnect()
             .build();
 
         setConnection(newConnection);
-    }, []);
+    }, [upiUrl]);
 
     useEffect(() => {
         if (connection) {
