@@ -19,19 +19,19 @@ const orderButtons = [
         value: 'endingSoon'
     },
     {
-        label: 'Recently added',
+        label: 'New',
         icon: BsFillStopCircleFill,
         value: 'new'
     },
 ]
 const filterButtons = [
     {
-        label: 'Live Auctions',
+        label: 'Live',
         icon: GiFlame,
         value: 'live'
     },
     {
-        label: 'Ending < 6 hours',
+        label: 'Ending',
         icon: GiFinishLine,
         value: 'endingSoon'
     },
@@ -49,13 +49,12 @@ export default function Filters() {
     const filterBy = useParamsStore(state => state.filterBy);
 
     return (
-        <div className='flex justify-between items-center mb-4'>
-
-            <div>
+        <div className='grid lg:grid-cols-3 items-center  mb-4'>
+            <div className=''>
                 <span className='uppercase text-sm text-gray-500 mr-2'>
                     Order by
                 </span>
-                <Button.Group>
+                <Button.Group className=''>
                     {orderButtons.map(({ label, icon: Icon, value }) => (
                         <Button key={value}
                             onClick={() => setParams({ orderBy: value })}
@@ -67,11 +66,11 @@ export default function Filters() {
                     ))}
                 </Button.Group>
             </div>
-            <div>
+            <div className='my-3 items-center lg:justify-center'>
                 <span className='uppercase text-sm text-gray-500 mr-2'>
                     Filter by
                 </span>
-                <Button.Group>
+                <Button.Group className=''>
                     {filterButtons.map(({ label, icon: Icon, value }) => (
                         <Button key={value}
                             onClick={() => setParams({ filterBy: value })}
@@ -83,8 +82,8 @@ export default function Filters() {
                     ))}
                 </Button.Group>
             </div>
-            <div>
-                <span className='uppercase text-sm text-gray-500 mr-2'>
+            <div className='flex lg:justify-end items-center'>
+                <span className='uppercase text-sm text-gray-500 mr-2 md:flex flex-col'>
                     Page size
                 </span>
                 <Button.Group>

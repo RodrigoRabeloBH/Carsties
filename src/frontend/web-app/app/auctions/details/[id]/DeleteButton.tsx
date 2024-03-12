@@ -24,7 +24,7 @@ export default function DeleteButton({ id }: Props) {
     }
     return (
         <Button gradientDuoTone='pinkToOrange' size='sm' isProcessing={loading} onClick={doDelete}>
-            Delete Auction
+            Delete
         </Button>
     )
 }

@@ -16,7 +16,7 @@ export default function Logo() {
     }
 
     return (
-        <div className='flex items-center gap-2 md:text-1xl lg:text-3xl font-semibold text-red-500'>
+        <div className='flex items-center gap-2 md:text-1xl lg:text-3xl font-semibold text-red-500 m-2'>
             <AiOutlineCar size={34} />
             <div onClick={doReset} className='cursor-pointer'>
                 Carsties Auctions

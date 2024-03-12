@@ -14,24 +14,24 @@ export default async function Details({ params }: { params: { id: string } }) {
     const user = await getCurrentUser();
     return (
         <div>
-            <div className="flex justify-between">
-                <div className='flex items-center gap-3'>
+            <div className="sm:grid grid-cols-2">
+                <div className='flex items-center justify-between gap-3 mb-2'>
                     <Heading title={`${auction.make} ${auction.model}`} />
                     {user?.username === auction.seller && (
-                        <>
+                        <div className='flex gap-4 mr-3'>
                             <EditButton id={auction.id} />
                             <DeleteButton id={auction.id} />
-                        </>
+                        </div>
                     )}
                 </div>
-                <div className="flex gap-3">
-                    <h3 className='text-2xl font-semibold'>
+                <div className="flex gap-3 items-center justify-end">
+                    <h3 className='lg:text-2xl font-semibold'>
                         Time remaining
                     </h3>
                     <CountdownTimer auctionEnd={auction.auctionEnd} />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-6 mt-3">
+            <div className="lg:grid grid-cols-2 gap-6 mt-3">
                 <div className="w-full bg-gray-200 aspect-h-10 aspect-w-16 rounded-lg overflow-hidden">
                     <CarImage imageUrl={auction.imageUrl} />
                 </div>

@@ -11,7 +11,7 @@ export default function EditButton({ id }: Props) {
     return (
         <Button size='sm' gradientDuoTone='greenToBlue'>
             <Link href={`/auctions/update/${id}`} >
-                Update Auction
+                Update
             </Link>
         </Button>
     )

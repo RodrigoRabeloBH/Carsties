@@ -64,7 +64,7 @@ export default function AuctionForm({ auction }: Props) {
             <Input label='Image URL' name='imageUrl' control={control} rules={{ required: 'Image URL is required' }} />
             {pathname === '/auctions/create' &&
                 <>
-                    <div className='grid grid-cols-2 gap-3'>
+                    <div className='grid md:grid-cols-2 gap-3'>
                         <Input label='Reserve Price (enter 0 if no reserve)' name='reservePrice'
                             type='number' control={control} rules={{ required: 'Reserve is required' }} />
                         <DateInput
@@ -76,7 +76,7 @@ export default function AuctionForm({ auction }: Props) {
                             rules={{ required: 'Auction end is required' }} />
                     </div>
                 </>}
-            <div className='flex justify-between'>
+            <div className='flex justify-between mt-2'>
                 <Button outline color='gray'>Cancel</Button>
                 <Button
                     isProcessing={isSubmitting}
