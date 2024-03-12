@@ -50,7 +50,8 @@ services:
     image: rasr88/gateway-svc:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=http://+:80      
+      - ASPNETCORE_URLS=http://+:80
+      - CLIENT_APP=http://web-app      
     ports:
       - 6001:80
     networks:
